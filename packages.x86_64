@@ -1,0 +1,128 @@
+# ==============================================================================
+# ZenithOS - Minimalist High-Performance Gaming Distribution
+# Base: Arch Linux (x86_64) | Wayland + Gamescope + PipeWire + Kernel Zen/BORE
+# ==============================================================================
+
+# [1. Sistema Base y Kernel]
+base
+base-devel
+linux-zen
+linux-zen-headers
+linux-firmware
+sof-firmware
+efibootmgr
+btrfs-progs
+xfsprogs
+dosfstools
+zram-generator
+arch-install-scripts
+pacman-contrib
+
+# [2. Red y Conectividad]
+networkmanager
+network-manager-applet
+wireless_tools
+wpa_supplicant
+bluez
+bluez-utils
+openssh
+curl
+wget
+git
+rsync
+
+# [3. Audio de Ultra-Baja Latencia (PipeWire Stack)]
+pipewire
+pipewire-pulse
+pipewire-jack
+pipewire-alsa
+wireplumber
+lib32-pipewire
+lib32-pipewire-jack
+pavucontrol
+alsa-utils
+
+# [4. Controladores Gráficos y Aceleración de Video (AMD / Intel / NVIDIA)]
+# Mesa y Vulkan (64 y 32 bits esenciales para juegos antiguos y emulación)
+mesa
+lib32-mesa
+vulkan-tools
+vulkan-icd-loader
+lib32-vulkan-icd-loader
+
+# AMD Radeon (RADV)
+vulkan-radeon
+lib32-vulkan-radeon
+libva-mesa-driver
+lib32-libva-mesa-driver
+mesa-vdpau
+lib32-mesa-vdpau
+
+# Intel Graphics (ANV)
+vulkan-intel
+lib32-vulkan-intel
+intel-media-driver
+libva-intel-driver
+
+# NVIDIA (Controladores propietarios y utilidades 32-bit)
+nvidia-dkms
+nvidia-utils
+lib32-nvidia-utils
+nvidia-settings
+opencl-nvidia
+lib32-opencl-nvidia
+
+# [5. Servidor Gráfico, Compositor y Wayland]
+xorg-xwayland
+wayland
+wayland-protocols
+gamescope
+hyprland
+hyprpaper
+waybar
+wofi
+dunst
+polkit-kde-agent
+qt5-wayland
+qt6-wayland
+sddm
+
+# [6. Capas de Compatibilidad y Dependencias de Gaming]
+steam
+gamemode
+lib32-gamemode
+mangohud
+lib32-mangohud
+goverlay
+wine-staging
+winetricks
+lutris
+bottles
+vkd3d
+lib32-vkd3d
+
+# [7. Soporte para Mandos, Periféricos y Entrada]
+game-devices-udev
+openrgb
+libevdev
+joyutils
+
+# [8. Utilidades de Sistema, Fuentes y Herramientas Minimalistas]
+kitty
+fastfetch
+btop
+htop
+nano
+vim
+p7zip
+unrar
+unzip
+tar
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-jetbrains-mono-nerd
+ttf-fira-code
+xdg-user-dirs
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk

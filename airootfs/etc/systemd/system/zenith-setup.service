@@ -1,0 +1,25 @@
+[Unit]
+Description=ZenithOS Gaming Optimizations Boot Script
+After=multi-user.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c ' \
+  if [ -d /sys/devices/system/cpu/cpu0/cpufreq ]; then \
+    for gov in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do \
+      echo "schedutil" > "$gov" 2>/dev/null || echo "performance" > "$gov" 2>/dev/null; \
+    done; \
+  fi; \
+  if sysctl kernel.split_lock_mitigate >/dev/null 2>&1; then \
+    sysctl -w kernel.split_lock_mitigate=0; \
+  fi; \
+  for disk in /sys/block/nvme* /sys/block/sd*; do \
+    if [ -f "$disk/queue/scheduler" ]; then \
+      echo "none" > "$disk/queue/scheduler" 2>/dev/null || echo "kyber" > "$disk/queue/scheduler" 2>/dev/null; \
+    fi; \
+  done \
+'
+
+[Install]
+WantedBy=multi-user.target

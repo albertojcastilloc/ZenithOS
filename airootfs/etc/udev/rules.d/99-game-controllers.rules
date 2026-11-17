@@ -1,0 +1,35 @@
+# ==============================================================================
+# ZenithOS - Reglas UDEV para Mandos y Periféricos de Juegos
+# /etc/udev/rules.d/99-game-controllers.rules
+# ==============================================================================
+
+# Acceso a /dev/uinput para emulación de mandos y mapeo virtual de Steam
+KERNEL=="uinput", MODE="0660", GROUP="users", OPTIONS+="static_node=uinput"
+
+# [Valve Steam Controller]
+KERNEL=="uinput", MODE="0660", GROUP="users"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
+KERNEL=="hidraw*", ATTRS{idVendor}=="28de", MODE="0666"
+
+# [Sony PlayStation DualShock 4 y DualSense PS5 (USB & Bluetooth)]
+# PS4 Slim / Pro
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", MODE="0666"
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="09cc", MODE="0666"
+# PS5 DualSense
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", MODE="0666"
+# PS5 DualSense Edge
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0df2", MODE="0666"
+
+# [Microsoft Xbox (360, One, Series X/S, Elite)]
+# USB
+SUBSYSTEM=="usb", ATTRS{idVendor}=="045e", MODE="0666"
+# Bluetooth (xpadneo / xone)
+KERNEL=="hidraw*", KERNELS=="*045E:*", MODE="0666"
+
+# [Nintendo Switch Pro Controller (USB & Bluetooth)]
+KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0666"
+
+# [8BitDo Controllers (X-Input, D-Input, Switch mode)]
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2dc8", MODE="0666"
+KERNEL=="hidraw*", ATTRS{idVendor}=="2dc8", MODE="0666"

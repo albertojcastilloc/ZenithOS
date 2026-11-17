@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ZenithOS - Detección y Configuración Automática de GPU
+# /usr/local/bin/zenith-gpu-detect
+# ==============================================================================
+
+echo "[ZenithOS] Escaneando controladores gráficos instalados..."
+
+HAS_NVIDIA=false
+HAS_AMD=false
+HAS_INTEL=false
+
+if lspci -nn | grep -E "VGA|3D" | grep -qi "NVIDIA"; then
+    HAS_NVIDIA=true
+fi
+
+if lspci -nn | grep -E "VGA|3D" | grep -qi "Advanced Micro Devices|AMD|Radeon"; then
+    HAS_AMD=true
+fi
+
+if lspci -nn | grep -E "VGA|3D" | grep -qi "Intel"; then
+    HAS_INTEL=true
+fi
+
+echo "--- Resultados de GPU ---"
+echo "  * AMD Radeon:  $HAS_AMD"
+echo "  * Intel GPU:   $HAS_INTEL"
+echo "  * NVIDIA GPU:  $HAS_NVIDIA"
+
+# Configuración si se detecta NVIDIA híbrida (Optimus / Prime)
+if [ "$HAS_NVIDIA" = true ] && { [ "$HAS_AMD" = true ] || [ "$HAS_INTEL" = true ]; }; then
+    echo "[ZenithOS] Configuración híbrida detectada (iGPU + dGPU NVIDIA)."
+    echo "[ZenithOS] Para ejecutar juegos pesados en la tarjeta dedicada NVIDIA, usa:"
+    echo "           prime-run <comando>  o  __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia <comando>"
+fi
+
+# Configuración Vulkan ICD Loader
+if [ "$HAS_AMD" = true ]; then
+    export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json
+fi
+
+echo "[ZenithOS] Configuración gráfica aplicada con éxito."

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ZenithOS - Lanzador de Sesión de Juegos dedicada (Gamescope + Steam Big Picture)
+# /usr/local/bin/zenith-game-session
+# ==============================================================================
+
+set -e
+
+# Configuración por defecto de resolución
+RES_W="${RES_W:-1920}"
+RES_H="${RES_H:-1080}"
+REFRESH="${REFRESH:-144}"
+
+echo "=========================================================="
+echo "   Iniciando ZenithOS Gaming Session (Gamescope + Steam)   "
+echo "=========================================================="
+echo "Resolución de salida: ${RES_W}x${RES_H} @ ${REFRESH}Hz"
+
+# Ejecutar Gamescope aislando Steam en su propio micro-compositor
+# Flags:
+#  -W / -H: Resolución de render interno
+#  -w / -h: Resolución de pantalla física
+#  -r: Tasa de refresco objetivo
+#  -f: Pantalla completa (fullscreen)
+#  --adaptive-sync: Activar VRR (FreeSync / G-Sync)
+#  --hdr-enabled: Activar soporte de HDR si el monitor lo soporta
+#  -e: Integración con cliente Steam
+exec gamescope \
+    -W "$RES_W" -H "$RES_H" \
+    -w "$RES_W" -h "$RES_H" \
+    -r "$REFRESH" \
+    -f \
+    --adaptive-sync \
+    -e -- \
+    steam -gamepadui -steamos3
