@@ -55,8 +55,6 @@ vulkan-radeon
 lib32-vulkan-radeon
 libva-mesa-driver
 lib32-libva-mesa-driver
-mesa-vdpau
-lib32-mesa-vdpau
 
 # Intel Graphics (ANV)
 vulkan-intel
@@ -82,7 +80,7 @@ hyprpaper
 waybar
 wofi
 dunst
-polkit-kde-agent
+polkit-gnome
 qt5-wayland
 qt6-wayland
 sddm
@@ -97,12 +95,11 @@ goverlay
 wine-staging
 winetricks
 lutris
-bottles
 vkd3d
 lib32-vkd3d
 
 # [7. Soporte para Mandos, Periféricos y Entrada]
-game-devices-udev
+# (Las reglas udev completas están incluidas en airootfs/etc/udev/rules.d/99-game-controllers.rules)
 openrgb
 libevdev
 joyutils

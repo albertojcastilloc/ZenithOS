@@ -41,8 +41,8 @@ echo "[*] Aplicando configuraciones de ZenithOS..."
 cp "$DIR/profiledef.sh" "$BUILD_PROFILE"/
 cp "$DIR/pacman.conf" "$BUILD_PROFILE"/
 
-# Combinar lista de paquetes (evitando duplicados)
-cat "$DIR/packages.x86_64" >> "$BUILD_PROFILE/packages.x86_64"
+# Combinar lista de paquetes filtrando comentarios y lineas vacias
+grep -vhE '^\s*(#|$)' "$DIR/packages.x86_64" >> "$BUILD_PROFILE/packages.x86_64"
 sort -u "$BUILD_PROFILE/packages.x86_64" -o "$BUILD_PROFILE/packages.x86_64"
 
 # Copiar el árbol airootfs con todas las optimizaciones del kernel y scripts
